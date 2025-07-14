@@ -12,8 +12,8 @@ using evercloud.DataAccess.Data;
 namespace evercloud.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250703124317_AddCreatedAtToUsers")]
-    partial class AddCreatedAtToUsers
+    [Migration("20250714110227_InitIdentity")]
+    partial class InitIdentity
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
