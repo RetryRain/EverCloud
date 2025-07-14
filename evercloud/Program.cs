@@ -32,6 +32,7 @@ builder.Services.AddScoped<IPurchaseService, PurchaseService>();
 
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<IAccountService, AccountService>();
+
 builder.Services.AddScoped<IAdminService>(provider =>
 {
     var env = provider.GetRequiredService<IWebHostEnvironment>();
