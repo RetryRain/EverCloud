@@ -1,42 +1,91 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using evercloud.Domain.Interfaces;
+using Microsoft.Extensions.Logging;
 
 namespace evercloud.DataAccess.Repositories
 {
-    public class AccountRepository(UserManager<Users> userManager) : IAccountRepository
+    public class AccountRepository(UserManager<Users> userManager, ILogger<AccountRepository> logger) : IAccountRepository
     {
         public async Task<Users?> FindByEmailAsync(string email)
         {
-            return await userManager.FindByEmailAsync(email);
+            try
+            {
+                return await userManager.FindByEmailAsync(email);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error in FindByEmailAsync for email: {Email}", email);
+                return null;
+            }
         }
 
         public async Task<Users?> FindByUsernameAsync(string username)
         {
-            return await userManager.FindByNameAsync(username);
+            try
+            {
+                return await userManager.FindByNameAsync(username);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error in FindByUsernameAsync for username: {Username}", username);
+                return null;
+            }
         }
 
         public async Task<bool> CreateUserAsync(Users user, string password)
         {
-            var result = await userManager.CreateAsync(user, password);
-            return result.Succeeded;
+            try
+            {
+                var result = await userManager.CreateAsync(user, password);
+                return result.Succeeded;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error in CreateUserAsync for user: {User}", user?.UserName);
+                return false;
+            }
         }
 
         public async Task<bool> RemovePasswordAsync(Users user)
         {
-            var result = await userManager.RemovePasswordAsync(user);
-            return result.Succeeded;
+            try
+            {
+                var result = await userManager.RemovePasswordAsync(user);
+                return result.Succeeded;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error in RemovePasswordAsync for user: {User}", user?.UserName);
+                return false;
+            }
         }
 
         public async Task<bool> AddPasswordAsync(Users user, string newPassword)
         {
-            var result = await userManager.AddPasswordAsync(user, newPassword);
-            return result.Succeeded;
+            try
+            {
+                var result = await userManager.AddPasswordAsync(user, newPassword);
+                return result.Succeeded;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error in AddPasswordAsync for user: {User}", user?.UserName);
+                return false;
+            }
         }
 
         public async Task<bool> DeleteUserAsync(Users user)
         {
-            var result = await userManager.DeleteAsync(user);
-            return result.Succeeded;
+            try
+            {
+                var result = await userManager.DeleteAsync(user);
+                return result.Succeeded;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error in DeleteUserAsync for user: {User}", user?.UserName);
+                return false;
+            }
         }
     }
 }

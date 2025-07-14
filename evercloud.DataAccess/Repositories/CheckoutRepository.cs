@@ -2,29 +2,53 @@
 using evercloud.Domain.Interfaces;
 using evercloud.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging; // Add for logging
 
 namespace evercloud.DataAccess.Repositories
 {
-    public class CheckoutRepository(AppDbContext context) : ICheckoutRepository
+    public class CheckoutRepository(AppDbContext context, ILogger<CheckoutRepository> logger) : ICheckoutRepository
     {
         public async Task<List<Purchase>> GetAllPurchasesAsync()
         {
-            return await context.Purchases.ToListAsync();
+            try
+            {
+                return await context.Purchases.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error in GetAllPurchasesAsync");
+                return [];
+            }
         }
 
         public async Task AddPurchaseAsync(Purchase purchase)
         {
-            context.Purchases.Add(purchase);
-            await context.SaveChangesAsync();
+            try
+            {
+                context.Purchases.Add(purchase);
+                await context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error in AddPurchaseAsync for purchase: {@Purchase}", purchase);
+            }
         }
 
         public async Task DeletePurchaseAsync(int id)
         {
-            var purchase = await context.Purchases.FindAsync(id);
-            if (purchase != null)
+            try
             {
-                context.Purchases.Remove(purchase);
-                await context.SaveChangesAsync();
+                var purchase = await context.Purchases.FindAsync(id);
+                if (purchase != null)
+                {
+                    context.Purchases.Remove(purchase);
+                    await context.SaveChangesAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error in DeletePurchaseAsync for id: {Id}", id);
+                // Optionally rethrow or handle as needed
             }
         }
     }

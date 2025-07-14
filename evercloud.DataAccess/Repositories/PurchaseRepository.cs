@@ -1,52 +1,98 @@
 ﻿using evercloud.DataAccess.Data;
 using evercloud.Domain.Models;
 using Microsoft.EntityFrameworkCore;
-using evercloud.Domain.Interfaces;  
+using evercloud.Domain.Interfaces;
+using Microsoft.Extensions.Logging; 
 
 namespace evercloud.DataAccess.Repositories
 {
-    public class PurchaseRepository(AppDbContext context) : IPurchaseRepository
+    public class PurchaseRepository(AppDbContext context, ILogger<PurchaseRepository> logger) : IPurchaseRepository
     {
         public async Task<IEnumerable<Purchase>> GetAllAsync()
         {
-            return await context.Purchases
-                .Include(p => p.User)
-                .ToListAsync();
+            try
+            {
+                return await context.Purchases
+                    .Include(p => p.User)
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error in GetAllAsync");
+                return Enumerable.Empty<Purchase>();
+            }
         }
 
         public async Task<Purchase?> GetByIdAsync(int id)
         {
-            return await context.Purchases
-                .Include(p => p.User)
-                .Include(p => p.Plan)
-                .FirstOrDefaultAsync(p => p.Id == id);
+            try
+            {
+                return await context.Purchases
+                    .Include(p => p.User)
+                    .Include(p => p.Plan)
+                    .FirstOrDefaultAsync(p => p.Id == id);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error in GetByIdAsync for id: {Id}", id);
+                return null;
+            }
         }
 
         public async Task<IEnumerable<Purchase>> GetByUserIdAsync(string userId)
         {
-            return await context.Purchases
-                .Include(p => p.Plan)
-                .Where(p => p.UserId == userId)
-                .ToListAsync();
+            try
+            {
+                return await context.Purchases
+                    .Include(p => p.Plan)
+                    .Where(p => p.UserId == userId)
+                    .ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error in GetByUserIdAsync for userId: {UserId}", userId);
+                return Enumerable.Empty<Purchase>();
+            }
         }
 
         public async Task AddAsync(Purchase purchase)
         {
-            await context.Purchases.AddAsync(purchase);
+            try
+            {
+                await context.Purchases.AddAsync(purchase);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error in AddAsync for purchase: {@Purchase}", purchase);
+            }
         }
 
         public async Task DeleteAsync(int id)
         {
-            var purchase = await context.Purchases.FindAsync(id);
-            if (purchase != null)
+            try
             {
-                context.Purchases.Remove(purchase);
+                var purchase = await context.Purchases.FindAsync(id);
+                if (purchase != null)
+                {
+                    context.Purchases.Remove(purchase);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error in DeleteAsync for id: {Id}", id);
             }
         }
 
         public async Task SaveChangesAsync()
         {
-            await context.SaveChangesAsync();
+            try
+            {
+                await context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error in SaveChangesAsync");
+            }
         }
     }
 }
