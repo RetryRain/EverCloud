@@ -4,11 +4,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace evercloud.DataAccess.Data
 {
-    public class AppDbContext : IdentityDbContext<Users>
+    public class AppDbContext(DbContextOptions options) : IdentityDbContext<Users>(options)
     {
-        public AppDbContext(DbContextOptions options) : base(options)
-        {
-        }
         public DbSet<Purchase> Purchases { get; set; }
 
     }
