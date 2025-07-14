@@ -15,5 +15,16 @@ namespace evercloud.Controllers
         {
             return View();
         }
+
+        public IActionResult StatusCode(int code)
+        {
+            if (code == 404)
+            {
+                return View("NotFound");
+            }
+
+            return View("GenericError"); // optional: 403, 500 etc.
+        }
+
     }
 }

@@ -71,6 +71,8 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
 
+app.UseStatusCodePagesWithReExecute("/Home/StatusCode", "?code={0}");
+
 // Seed Roles and Assign Admin
 using (var scope = app.Services.CreateScope())
 {
