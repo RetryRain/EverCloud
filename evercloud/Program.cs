@@ -1,4 +1,5 @@
 using evercloud.DataAccess.Data;
+using evercloud.Domain.Models;
 using evercloud.DataAccess.Repositories;
 using evercloud.Domain.Interfaces;
 using evercloud.Service.Services;

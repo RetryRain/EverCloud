@@ -1,4 +1,6 @@
-﻿namespace evercloud.Domain.Interfaces
+﻿using evercloud.Domain.Models;
+
+namespace evercloud.Domain.Interfaces
 {
     public interface IAccountRepository
     {

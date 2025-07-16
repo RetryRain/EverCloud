@@ -1,0 +1,64 @@
+﻿@using evercloud.Domain.Models
+@model List<SupportMessage>
+
+@{
+    DateTime? lastDate = null;
+}
+
+<div class="vh-100 d-flex flex-column bg-dark" style="color: #cfcfcf;">
+
+    <!-- Header -->
+    <div class="p-3 border-bottom border-secondary">
+        <h3 class="mb-0 text-bg-success text-center rounded-2 py-2">Support Chat</h3>
+    </div>
+
+    <!-- Chat Messages (scrollable) -->
+    <div id="chatMessages" class="container flex-grow-1 overflow-auto px-3 py-2 border-start border-end border-1">
+        @foreach (var message in Model)
+        {
+            var isUser = message.Sender == "User";
+            var messageDate = message.Timestamp.Date;
+
+            if (lastDate == null || lastDate.Value.Date != messageDate)
+            {
+                <div class="text-center text-white my-3">
+                    <strong>— @messageDate.ToString("MMMM dd, yyyy") —</strong>
+                </div>
+                lastDate = messageDate;
+            }
+
+            <div class="d-flex mb-3 @(isUser ? "justify-content-end" : "justify-content-start")">
+                <div class="p-2 rounded-3"
+                     style="max-width: 70%;
+                                background-color: @(isUser ? "#00d4ff" : "#9b51e0");
+                                color: @(isUser ? "black" : "white");">
+                    <span>@message.MessageContent</span>
+                    <div style="font-size: 0.7rem; opacity: 0.7;">
+                        @message.Timestamp.ToShortTimeString() (@message.Timestamp.ToShortDateString())
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Sticky Chat Input -->
+    <form asp-action="PostMessage" method="post" class="container border-top border-secondary bg-dark p-3 z-3 position-sticky bottom-0">
+        <div class="input-group">
+            <input type="text" name="message" class="form-control" placeholder="Type your message..." required />
+            <button class="btn btn-primary" type="submit">Send</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const chatBox = document.getElementById("chatMessages");
+            if (chatBox) {
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+        });
+    </script>
+}
+
+

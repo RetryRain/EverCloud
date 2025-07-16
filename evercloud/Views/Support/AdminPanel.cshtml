@@ -1,0 +1,30 @@
+﻿@model List<evercloud.Domain.Models.Users>
+
+@{
+    ViewData["Title"] = "Support Admin Panel";
+}
+
+<div class="container py-4" style="background-color: #1e1f22; color: #cfcfcf; border-radius: 1rem;">
+    <h3 class="mb-4">Support Inbox</h3>
+
+    @if (Model.Any())
+    {
+        <ul class="list-group">
+            @foreach (var user in Model)
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-center"
+                    style="background-color: #2a2b2e; color: #ffffff; border: none; border-radius: 0.5rem; margin-bottom: 0.5rem;">
+                    <span>
+                        <strong>@user.FullName</strong> <br />
+                        <small class="text-muted">@user.Email</small>
+                    </span>
+                    <a class="btn btn-outline-light" asp-action="AdminChat" asp-route-userId="@user.Id">Open Chat</a>
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <div class="alert alert-info">No support messages yet.</div>
+    }
+</div>

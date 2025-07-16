@@ -1,4 +1,5 @@
 ﻿using evercloud.Domain.Interfaces;
+using evercloud.Domain.Models;
 
 namespace evercloud.Service.Services
 {

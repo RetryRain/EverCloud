@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
+using evercloud.Domain.Models;
+
 namespace evercloud.Controllers
+
 {
     public class DashboardController(UserManager<Users> userManager) : Controller
     {

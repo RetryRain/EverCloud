@@ -1,0 +1,44 @@
+﻿@model List<evercloud.ViewModels.AdminInboxUserViewModel>
+
+<div class="p-2">
+
+    <div class="container-sm py-4 mt-3" style="background-color: #1e1f22; color: #cfcfcf; border-radius: 1rem;">
+        <h3 class="mb-4 text-warning">Support Inbox</h3>
+
+        @if (Model.Count == 0)
+        {
+            <div>No support messages yet.</div>
+        }
+        else
+        {
+            <div class="list-group">
+                @foreach (var user in Model)
+                {
+                    <a asp-action="AdminChat" asp-route-userId="@user.Id"
+                       class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
+                       style="background-color: #2a2b2e; color: #cfcfcf;">
+
+                        <!-- Left side: Username + red if unread -->
+                        <div>
+                            <div class="d-flex justify-content-between">
+                                <span class="d-inline-block fw-bold" style="width: 1000px">@user.FullName</span>
+                                <span class="d-inline-block">
+                                    @if (user.HasUnread)
+                                    {
+                                        <img class="inbox" src="~/images/chat_unread.png"/>
+                                    }
+                                    else
+                                    {
+                                        <img class="inbox" src="~/images/chat_read.png" />
+                                    }
+                                </span>
+                            </div>
+                            <div style="font-size: 0.8rem;">@user.Email</div>
+                        </div>
+                    </a>
+                }
+            </div>
+        }
+    </div>
+
+</div>

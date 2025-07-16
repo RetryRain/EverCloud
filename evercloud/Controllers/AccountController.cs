@@ -1,5 +1,6 @@
 ﻿using evercloud.Domain.Interfaces;
 using evercloud.ViewModels;
+using evercloud.Domain.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 

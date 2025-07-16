@@ -1,0 +1,11 @@
+﻿@model bool
+
+<a class="nav-link me-3 position-relative" asp-controller="Support" asp-action="Index">
+    Support
+    @if (Model)
+    {
+        <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle">
+            <span class="visually-hidden">Unread messages</span>
+        </span>
+    }
+</a>

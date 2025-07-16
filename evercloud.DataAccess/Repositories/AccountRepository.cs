@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using evercloud.Domain.Interfaces;
 using Microsoft.Extensions.Logging;
+using evercloud.Domain.Models;
 
 namespace evercloud.DataAccess.Repositories
 {
