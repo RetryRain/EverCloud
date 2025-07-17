@@ -98,17 +98,23 @@ namespace evercloud.Controllers
         public IActionResult AdminInbox()
         {
             var usersWithMessages = _context.Users
-                .Include(u => u.SupportMessages)
-                .Where(u => u.SupportMessages.Any())
-                .Select(u => new AdminInboxUserViewModel
-                {
-                    Id = u.Id,
-                    UserName = u.UserName,
-                    FullName = u.FullName,
-                    Email = u.Email,
-                    HasUnread = u.SupportMessages.Any(m => m.Sender == "User" && !m.IsRead)
-                })
-                .ToList();
+             .Include(u => u.SupportMessages)
+             .Where(u => u.SupportMessages.Any())
+             .Select(u => new AdminInboxUserViewModel
+             {
+                 Id = u.Id,
+                 UserName = u.UserName,
+                 FullName = u.FullName,
+                 Email = u.Email,
+                 HasUnread = u.SupportMessages.Any(m => m.Sender == "User" && !m.IsRead),
+                 LastMessageTime = u.SupportMessages.OrderByDescending(m => m.Timestamp).FirstOrDefault().Timestamp
+             })
+             .AsEnumerable()
+             .OrderByDescending(u => u.HasUnread)
+             .ThenByDescending(u => u.LastMessageTime) // ⏱ Sort by recency too!
+             .ToList();
+
+
 
             return View("AdminInbox", usersWithMessages);
         }

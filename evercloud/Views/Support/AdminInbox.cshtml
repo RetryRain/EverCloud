@@ -21,11 +21,11 @@
                         <!-- Left side: Username + red if unread -->
                         <div>
                             <div class="d-flex justify-content-between">
-                                <span class="d-inline-block fw-bold" style="width: 1000px">@user.FullName</span>
+                                <span class="d-inline-block fw-bold text-white" style="width: 1000px">@user.FullName</span>
                                 <span class="d-inline-block">
                                     @if (user.HasUnread)
                                     {
-                                        <img class="inbox" src="~/images/chat_unread.png"/>
+                                        <img class="inbox" src="~/images/chat_unread.png" />
                                     }
                                     else
                                     {
@@ -33,8 +33,17 @@
                                     }
                                 </span>
                             </div>
+
                             <div style="font-size: 0.8rem;">@user.Email</div>
+
+                            @if (user.LastMessageTime.HasValue)
+                            {
+                                <div class="text-bg-secondary rounded-1" style="font-size: 0.75rem;">
+                                    Last message: @user.LastMessageTime.Value.ToString("MMM dd, yyyy hh:mm tt")
+                                </div>
+                            }
                         </div>
+
                     </a>
                 }
             </div>
