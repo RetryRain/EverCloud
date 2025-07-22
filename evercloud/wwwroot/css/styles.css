@@ -164,3 +164,80 @@
         width: 25px;
         height: 25px;
     }
+
+    /*ADMIN CHAT*/
+    .support-chat-container {
+        color: #cfcfcf;
+    }
+
+    .user-message-bubble {
+        max-width: 70%;
+        background-color: #00d4ff;
+        color: black;
+    }
+
+    .admin-message-bubble {
+        max-width: 70%;
+        background-color: #9b51e0;
+        color: white;
+    }
+
+    .message-timestamp {
+        font-size: 0.7rem;
+        opacity: 0.7;
+    }
+
+    /*ADMIN INBOX*/
+.support-inbox-container {
+    background-color: #1e1f22;
+    color: #cfcfcf;
+    border-radius: 1rem;
+}
+
+.inbox-item {
+    background-color: #2a2b2e;
+    color: #cfcfcf;
+}
+
+.inbox-username {
+    width: 1000px;
+}
+
+.inbox-email {
+    font-size: 0.8rem;
+}
+
+.inbox-last-message {
+    font-size: 0.75rem;
+}
+
+/*ADMIN CHAT*/
+.text-support-text {
+    color: #cfcfcf;
+}
+
+.support-bubble {
+    max-width: 70%;
+    padding: 0.5rem;
+    border-radius: 1rem;
+}
+
+.user-bubble {
+    background-color: #00d4ff;
+    color: black;
+}
+
+.admin-bubble {
+    background-color: #9b51e0;
+    color: white;
+}
+
+.support-timestamp {
+    font-size: 0.7rem;
+    opacity: 0.7;
+}
+
+
+
+
+

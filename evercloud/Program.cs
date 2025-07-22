@@ -49,6 +49,8 @@ builder.Services.AddScoped<IDomainService, DomainService>();
 
 builder.Services.AddScoped<IPlanService, PlanService>();
 
+builder.Services.AddScoped<ISupportRepository, SupportRepository>();
+builder.Services.AddScoped<ISupportService, SupportService>();
 
 
 var app = builder.Build();

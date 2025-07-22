@@ -4,7 +4,7 @@
     ViewData["Title"] = "Support Admin Panel";
 }
 
-<div class="container py-4" style="background-color: #1e1f22; color: #cfcfcf; border-radius: 1rem;">
+<div class="container py-4 support-admin-container">
     <h3 class="mb-4">Support Inbox</h3>
 
     @if (Model.Any())
@@ -12,8 +12,7 @@
         <ul class="list-group">
             @foreach (var user in Model)
             {
-                <li class="list-group-item d-flex justify-content-between align-items-center"
-                    style="background-color: #2a2b2e; color: #ffffff; border: none; border-radius: 0.5rem; margin-bottom: 0.5rem;">
+                <li class="list-group-item d-flex justify-content-between align-items-center support-list-item">
                     <span>
                         <strong>@user.FullName</strong> <br />
                         <small class="text-muted">@user.Email</small>

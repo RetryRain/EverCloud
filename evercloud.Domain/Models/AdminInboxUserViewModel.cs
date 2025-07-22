@@ -1,4 +1,4 @@
-﻿namespace evercloud.ViewModels
+﻿namespace evercloud.Domain.Models
 {
     public class AdminInboxUserViewModel
     {

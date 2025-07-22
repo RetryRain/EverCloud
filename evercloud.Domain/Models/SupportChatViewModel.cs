@@ -1,7 +1,6 @@
-﻿using evercloud.Domain.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace evercloud.ViewModels
+namespace evercloud.Domain.Models
 {
     public class SupportChatViewModel
     {

@@ -1,8 +1,8 @@
-﻿@model List<evercloud.ViewModels.AdminInboxUserViewModel>
+﻿@model List<evercloud.Domain.Models.AdminInboxUserViewModel>
 
 <div class="p-2">
 
-    <div class="container-sm py-4 mt-3" style="background-color: #1e1f22; color: #cfcfcf; border-radius: 1rem;">
+    <div class="container-sm py-4 mt-3 support-inbox-container">
         <h3 class="mb-4 text-warning">Support Inbox</h3>
 
         @if (Model.Count == 0)
@@ -15,33 +15,27 @@
                 @foreach (var user in Model)
                 {
                     <a asp-action="AdminChat" asp-route-userId="@user.Id"
-                       class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
-                       style="background-color: #2a2b2e; color: #cfcfcf;">
+                       class="list-group-item d-flex justify-content-between align-items-center inbox-item">
 
-                        <!-- Left side: Username + red if unread -->
-                        <div>
+                        <div class="mw-100">
                             <div class="d-flex justify-content-between">
-                                <span class="d-inline-block fw-bold text-white" style="width: 1000px">@user.FullName</span>
+                                <span class="d-inline-block fw-bold text-white inbox-username">@user.FullName</span>
                                 <span class="d-inline-block">
-                                    @if (user.HasUnread)
-                                    {
-                                        <img class="inbox" src="~/images/chat_unread.png" />
-                                    }
-                                    else
-                                    {
-                                        <img class="inbox" src="~/images/chat_read.png" />
-                                    }
+                                    <img class="inbox" src="~/images/@(user.HasUnread ? "chat_unread.png" : "chat_read.png")" />
                                 </span>
                             </div>
 
-                            <div style="font-size: 0.8rem;">@user.Email</div>
+                            <div class="inbox-email">@user.Email</div>
 
                             @if (user.LastMessageTime.HasValue)
                             {
-                                <div class="text-bg-secondary rounded-1" style="font-size: 0.75rem;">
-                                    Last message: @user.LastMessageTime.Value.ToString("MMM dd, yyyy hh:mm tt")
+                                <div class="text-bg-secondary rounded-1 inbox-last-message mt-2 px-2 py-1 small text-wrap w-100">
+                                    <span class="d-block d-md-inline">
+                                        Last message: @user.LastMessageTime.Value.ToString("MMM dd, yyyy hh:mm tt")
+                                    </span>
                                 </div>
                             }
+
                         </div>
 
                     </a>

@@ -17,6 +17,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\evercloud.Domain\evercloud.Domain.csproj" />
 		<ProjectReference Include="..\evercloud.Service\evercloud.Service.csproj" />
 	</ItemGroup>
 
