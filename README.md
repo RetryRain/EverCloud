@@ -34,13 +34,6 @@ This project was built to replicate a real-world cloud hosting system, focusing 
 - Full-stack system integration  
 - Scalability and maintainability  
 
-## 🌐 Future Improvements
-
-- API-based microservices architecture  
-- Cloud deployment (Azure / AWS)  
-- Improved UI/UX  
-- Real payment gateway integration  
-
 ---
 
 > Built to understand how real systems work — not just how to code.
